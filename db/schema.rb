@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2018_11_03_204438) do
   enable_extension "plpgsql"
 
   create_table "cities", force: :cascade do |t|
-    t.integer "rank"
     t.string "name"
+    t.integer "rank"
     t.string "state"
     t.string "growth"
     t.integer "population"
