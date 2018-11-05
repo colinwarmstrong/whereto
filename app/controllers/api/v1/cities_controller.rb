@@ -3,7 +3,9 @@ class Api::V1::CitiesController < ApplicationController
     if city_params[:state]
       render json: City.where(state: city_params[:state]).order(rank: :asc)
     elsif city_params[:sort] == 'population'
-      render json: City.order(rank: :asc)
+      render json: City.order(population: :desc)
+    elsif city_params[:sort] == 'alphabetical'
+      render json: City.order(name: :asc)
     else
       render json: City.order(rank: :asc)
     end
