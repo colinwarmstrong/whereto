@@ -6,7 +6,7 @@ CSV.foreach('./db/data/city_data.csv', headers: true, header_converters: :symbol
   City.create!(name:      city[:city],
               rank:       city[:rank],
               state:      city[:state],
-              growth:     city[:growth],
+              growth:     city[:growth].delete('.').to_i,
               population: city[:population],
               latitude:   city[:latitude],
               longitude:  city[:longitude])

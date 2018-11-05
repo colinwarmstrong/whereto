@@ -9,7 +9,7 @@ class Api::V1::CitiesController < ApplicationController
     elsif city_params[:sort] == 'state'
       render json: City.order(state: :asc, population: :desc)
     elsif city_params[:sort] == 'growth'
-      render json: City.order(growth: :desc)
+      render json: City.order('SUBSTR(col_name FROM 1 FOR 1), CAST(SUBSTR(col_name FROM 2) AS UNSIGNED)')
     else
       render json: City.order(rank: :asc)
     end
