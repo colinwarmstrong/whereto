@@ -8,6 +8,6 @@ class CitySerializer < ActiveModel::Serializer
   private
 
   def number_to_percentage(number, precision)
-    (number.to_f / 100.to_f).round(2)
+    (number.to_f / 10.to_f).round(precision)
   end
 end
