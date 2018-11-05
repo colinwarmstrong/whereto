@@ -211,4 +211,66 @@ describe 'City API Endpoints' do
       expect(city_3[:longitude]).to eq(denver.longitude)
     end
   end
+
+  context 'GET /api/v1/cities?sort=state' do
+    it 'returns data about all cities sorted by alphabetical state names' do
+      denver  = City.create(name: 'Denver', state: 'Colorado', rank: 12, growth: '5.7', population: 2345127, latitude: '49.8781136', longitude: '-82.6297982')
+      boulder = City.create(name: 'Boulder', state: 'Colorado', rank: 22, growth: '6.7', population: 1223456, latitude: '50.8781136', longitude: '-81.6297982')
+      seattle = City.create(name: 'Seattle', state: 'Washington', rank: 22, growth: '6.7', population: 1223456, latitude: '50.8781136', longitude: '-81.6297982')
+      chicago = City.create(name: 'Chicago', state: 'Illinois', rank: 3, growth: '7.7', population: 3239845, latitude: '51.8781136', longitude: '-83.6297982')
+
+      get "/api/v1/cities?sort=state"
+
+      expect(response.status).to eq(200)
+
+      cities = JSON.parse(response.body, symbolize_names: true)
+      city_1 = cities[0]
+      city_2 = cities[1]
+      city_3 = cities[2]
+      city_4 = cities[3]
+
+      expect(cities).to be_an(Array)
+      expect(cities.length).to eq(4)
+
+      expect(city_1).to be_a(Hash)
+      expect(city_1[:id]).to eq(denver.id)
+      expect(city_1[:name]).to eq(denver.name)
+      expect(city_1[:state]).to eq(denver.state)
+      expect(city_1[:rank]).to eq(denver.rank)
+      expect(city_1[:growth]).to eq(denver.growth)
+      expect(city_1[:population]).to eq(denver.population)
+      expect(city_1[:latitude]).to eq(denver.latitude)
+      expect(city_1[:longitude]).to eq(denver.longitude)
+
+      expect(city_2).to be_a(Hash)
+      expect(city_2[:id]).to eq(boulder.id)
+      expect(city_2[:name]).to eq(boulder.name)
+      expect(city_2[:state]).to eq(boulder.state)
+      expect(city_2[:rank]).to eq(boulder.rank)
+      expect(city_2[:growth]).to eq(boulder.growth)
+      expect(city_2[:population]).to eq(boulder.population)
+      expect(city_2[:latitude]).to eq(boulder.latitude)
+      expect(city_2[:longitude]).to eq(boulder.longitude)
+
+      expect(city_3).to be_a(Hash)
+      expect(city_3[:id]).to eq(chicago.id)
+      expect(city_3[:name]).to eq(chicago.name)
+      expect(city_3[:state]).to eq(chicago.state)
+      expect(city_3[:rank]).to eq(chicago.rank)
+      expect(city_3[:growth]).to eq(chicago.growth)
+      expect(city_3[:population]).to eq(chicago.population)
+      expect(city_3[:latitude]).to eq(chicago.latitude)
+      expect(city_3[:longitude]).to eq(chicago.longitude)
+
+      expect(city_4).to be_a(Hash)
+      expect(city_4[:id]).to eq(seattle.id)
+      expect(city_4[:name]).to eq(seattle.name)
+      expect(city_4[:state]).to eq(seattle.state)
+      expect(city_4[:rank]).to eq(seattle.rank)
+      expect(city_4[:growth]).to eq(seattle.growth)
+      expect(city_4[:population]).to eq(seattle.population)
+      expect(city_4[:latitude]).to eq(seattle.latitude)
+      expect(city_4[:longitude]).to eq(seattle.longitude)
+    end
+  end
 end
