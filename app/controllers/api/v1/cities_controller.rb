@@ -2,6 +2,8 @@ class Api::V1::CitiesController < ApplicationController
   def index
     if city_params[:state]
       render json: City.where(state: city_params[:state]).order(rank: :asc)
+    elsif city_params[:sort] == 'population'
+      render json: City.order(rank: :asc)
     else
       render json: City.order(rank: :asc)
     end
@@ -18,7 +20,7 @@ class Api::V1::CitiesController < ApplicationController
   private
 
   def city_params
-    params.permit(:id, :state)
+    params.permit(:id, :state, :sort)
   end
 
   def city
