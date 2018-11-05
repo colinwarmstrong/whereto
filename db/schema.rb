@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2018_11_03_204438) do
     t.string "name"
     t.string "state"
     t.integer "rank"
-    t.string "growth"
+    t.integer "growth"
     t.integer "population"
     t.string "latitude"
     t.string "longitude"
