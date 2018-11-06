@@ -90,8 +90,8 @@ describe 'Authentication Endpoints' do
     end
   end
 
-  context 'POST /login' do
-    it 'creates a new user when given valid credentials' do
+  context 'DELETE /logout' do
+    it 'successfully logs a user out' do
       user = User.create(email: 'test@test.com', first_name: 'Colin', last_name: 'Armstrong', password: 'password1234')
 
       login_payload = {user: {
