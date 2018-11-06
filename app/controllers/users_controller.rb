@@ -5,8 +5,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       render json: user, status: 201
     else
-      flash[:notice] = "Invalid input. Please try again."
-      render :new
+      render json: {message: 'Invalid input. Please try again.'}, status: 400
     end
   end
 
