@@ -101,7 +101,7 @@ describe 'Authentication Endpoints' do
                        }
 
       post '/login', params: login_payload
-
+      
       expect(response.status).to eq(200)
 
       delete '/logout'
