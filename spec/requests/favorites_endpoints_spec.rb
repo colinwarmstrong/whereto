@@ -45,4 +45,36 @@ describe 'Favorites Endpoints' do
       expect(city_2[:longitude]).to eq(chicago.longitude)
     end
   end
+
+  context 'POST /api/v1/favorites' do
+    it "adds a city to a user's favorites" do
+      user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      denver = City.create(name: 'Denver', state: 'Colorado', rank: 22, growth: '5.7', population: 1345127, latitude: '49.8781136', longitude: '-82.6297982')
+
+      favorite_payload = {city_id: denver.id}
+
+      expect(user.favorites.count).to eq(0)
+
+      post '/api/v1/favorites', params: favorite_payload
+
+      expect(user.favorites.count).to eq(1)
+
+      expect(response.status).to eq(200)
+
+      new_favorite = JSON.parse(response.body, symbolize_names: true)
+
+      expect(new_favorite).to be_a(Hash)
+      expect(new_favorite[:id]).to eq(denver.id)
+      expect(new_favorite[:name]).to eq(denver.name)
+      expect(new_favorite[:state]).to eq(denver.state)
+      expect(new_favorite[:rank]).to eq(denver.rank)
+      expect(new_favorite[:growth]).to eq((denver.growth.to_f / 10.to_f).round(2))
+      expect(new_favorite[:population]).to eq(denver.population)
+      expect(new_favorite[:latitude]).to eq(denver.latitude)
+      expect(new_favorite[:longitude]).to eq(denver.longitude)
+    end
+  end
 end
