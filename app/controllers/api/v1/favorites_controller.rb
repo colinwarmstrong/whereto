@@ -4,12 +4,11 @@ class Api::V1::FavoritesController < ApplicationController
   end
 
   def create
-    city = City.find(favorite_params[:city_id])
-    if city
-      favorite = current_user.favorites.create(city_id: city.id)
+    if current_user && city
+      current_user.favorites.create(city_id: city.id)
       render json: city, status: 200
     else
-      render json: {message: 'Invalid city id.'}, status: 404
+      render json: {message: 'Invalid request.'}, status: 404
     end
   end
 
@@ -25,5 +24,9 @@ class Api::V1::FavoritesController < ApplicationController
 
   def city_ids
     current_user.favorites.pluck(:city_id)
+  end
+
+  def city
+    @city ||= City.find_by_id(favorite_params[:city_id])
   end
 end

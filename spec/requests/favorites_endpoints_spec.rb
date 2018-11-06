@@ -76,5 +76,37 @@ describe 'Favorites Endpoints' do
       expect(new_favorite[:latitude]).to eq(denver.latitude)
       expect(new_favorite[:longitude]).to eq(denver.longitude)
     end
+
+    it 'returns a 404 if given an invalid city id' do
+      user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      favorite_payload = {city_id: 1}
+
+      expect(user.favorites.count).to eq(0)
+
+      post '/api/v1/favorites', params: favorite_payload
+
+      expect(user.favorites.count).to eq(0)
+
+      expect(response.status).to eq(404)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message[:message]).to eq('Invalid request.')
+    end
+
+    it 'returns a 404 if no current user' do
+      favorite_payload = {city_id: 1}
+
+      post '/api/v1/favorites', params: favorite_payload
+
+      expect(response.status).to eq(404)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message[:message]).to eq('Invalid request.')
+    end
   end
 end
