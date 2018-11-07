@@ -19,11 +19,14 @@ class Api::V1::RejectionsController < ApplicationController
   end
 
   def cities
-    City.where(id: city_ids)
-  end
-
-  def city_ids
-    current_user.rejections.pluck(:city_id)
+    City.find_by_sql(
+      "SELECT cities.* FROM cities
+      JOIN rejections
+      ON rejections.city_id = cities.id
+      JOIN users
+      ON users.id = rejections.user_id
+      WHERE users.id = #{current_user.id}
+      ORDER BY rejections.created_at DESC")
   end
 
   def city

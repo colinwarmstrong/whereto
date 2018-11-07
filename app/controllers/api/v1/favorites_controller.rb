@@ -29,10 +29,6 @@ class Api::V1::FavoritesController < ApplicationController
       ORDER BY favorites.created_at DESC")
   end
 
-  def city_ids
-    current_user.favorites.pluck(:city_id)
-  end
-
   def city
     @city ||= City.find_by_id(favorite_params[:city_id])
   end
