@@ -46,67 +46,67 @@ describe 'Favorites Endpoints' do
     end
   end
 
-  # context 'POST /api/v1/rejections' do
-  #   it "adds a city to a user's rejections" do
-  #     user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
-  #
-  #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-  #
-  #     denver = City.create(name: 'Denver', state: 'Colorado', rank: 22, growth: '5.7', population: 1345127, latitude: '49.8781136', longitude: '-82.6297982')
-  #
-  #     favorite_payload = {city_id: denver.id}
-  #
-  #     expect(user.rejections.count).to eq(0)
-  #
-  #     post '/api/v1/rejections', params: favorite_payload
-  #
-  #     expect(user.rejections.count).to eq(1)
-  #
-  #     expect(response.status).to eq(200)
-  #
-  #     new_rejection = JSON.parse(response.body, symbolize_names: true)
-  #
-  #     expect(new_rejection).to be_a(Hash)
-  #     expect(new_rejection[:id]).to eq(denver.id)
-  #     expect(new_rejection[:name]).to eq(denver.name)
-  #     expect(new_rejection[:state]).to eq(denver.state)
-  #     expect(new_rejection[:rank]).to eq(denver.rank)
-  #     expect(new_rejection[:growth]).to eq((denver.growth.to_f / 10.to_f).round(2))
-  #     expect(new_rejection[:population]).to eq(denver.population)
-  #     expect(new_rejection[:latitude]).to eq(denver.latitude)
-  #     expect(new_rejection[:longitude]).to eq(denver.longitude)
-  #   end
-  #
-  #   it 'returns a 404 if given an invalid city id' do
-  #     user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
-  #
-  #     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-  #
-  #     favorite_payload = {city_id: 1}
-  #
-  #     expect(user.rejections.count).to eq(0)
-  #
-  #     post '/api/v1/rejections', params: favorite_payload
-  #
-  #     expect(user.rejections.count).to eq(0)
-  #
-  #     expect(response.status).to eq(404)
-  #
-  #     error_message = JSON.parse(response.body, symbolize_names: true)
-  #
-  #     expect(error_message[:message]).to eq('Invalid request.')
-  #   end
-  #
-  #   it 'returns a 404 if no current user' do
-  #     favorite_payload = {city_id: 1}
-  #
-  #     post '/api/v1/rejections', params: favorite_payload
-  #
-  #     expect(response.status).to eq(404)
-  #
-  #     error_message = JSON.parse(response.body, symbolize_names: true)
-  #
-  #     expect(error_message[:message]).to eq('Invalid request.')
-  #   end
-  # end
+  context 'POST /api/v1/rejections' do
+    it "adds a city to a user's rejections" do
+      user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      denver = City.create(name: 'Denver', state: 'Colorado', rank: 22, growth: '5.7', population: 1345127, latitude: '49.8781136', longitude: '-82.6297982')
+
+      favorite_payload = {city_id: denver.id}
+
+      expect(user.rejections.count).to eq(0)
+
+      post '/api/v1/rejections', params: favorite_payload
+
+      expect(user.rejections.count).to eq(1)
+
+      expect(response.status).to eq(200)
+
+      new_rejection = JSON.parse(response.body, symbolize_names: true)
+
+      expect(new_rejection).to be_a(Hash)
+      expect(new_rejection[:id]).to eq(denver.id)
+      expect(new_rejection[:name]).to eq(denver.name)
+      expect(new_rejection[:state]).to eq(denver.state)
+      expect(new_rejection[:rank]).to eq(denver.rank)
+      expect(new_rejection[:growth]).to eq((denver.growth.to_f / 10.to_f).round(2))
+      expect(new_rejection[:population]).to eq(denver.population)
+      expect(new_rejection[:latitude]).to eq(denver.latitude)
+      expect(new_rejection[:longitude]).to eq(denver.longitude)
+    end
+
+    it 'returns a 404 if given an invalid city id' do
+      user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+
+      favorite_payload = {city_id: 1}
+
+      expect(user.rejections.count).to eq(0)
+
+      post '/api/v1/rejections', params: favorite_payload
+
+      expect(user.rejections.count).to eq(0)
+
+      expect(response.status).to eq(404)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message[:message]).to eq('Invalid request.')
+    end
+
+    it 'returns a 404 if no current user' do
+      favorite_payload = {city_id: 1}
+
+      post '/api/v1/rejections', params: favorite_payload
+
+      expect(response.status).to eq(404)
+
+      error_message = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error_message[:message]).to eq('Invalid request.')
+    end
+  end
 end
