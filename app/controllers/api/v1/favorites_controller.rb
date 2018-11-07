@@ -20,13 +20,14 @@ class Api::V1::FavoritesController < ApplicationController
 
   def cities
     City.find_by_sql(
-      "SELECT cities.* FROM cities
-      JOIN favorites
-      ON favorites.city_id = cities.id
-      JOIN users
-      ON users.id = favorites.user_id
-      WHERE users.id = #{current_user.id}
-      ORDER BY favorites.created_at DESC")
+      "SELECT cities.*
+       FROM cities
+       JOIN favorites
+       ON favorites.city_id = cities.id
+       JOIN users
+       ON users.id = favorites.user_id
+       WHERE users.id = #{current_user.id}
+       ORDER BY favorites.created_at DESC")
   end
 
   def city
