@@ -6,6 +6,7 @@ describe 'Favorites Endpoints' do
       user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      allow_any_instance_of(CitySerializer).to receive(:current_user).and_return(user)
 
       denver  = City.create(name: 'Denver', state: 'Colorado', rank: 22, growth: '5.7', population: 1345127, latitude: '49.8781136', longitude: '-82.6297982')
       chicago = City.create(name: 'Chicago', state: 'Illinois', rank: 3, growth: '3.4', population: 3445993, latitude: '41.8781136', longitude: '-87.6297982')
@@ -33,6 +34,8 @@ describe 'Favorites Endpoints' do
       expect(city_1[:population]).to eq(chicago.population)
       expect(city_1[:latitude]).to eq(chicago.latitude)
       expect(city_1[:longitude]).to eq(chicago.longitude)
+      expect(city_1[:favorite]).to eq(false)
+      expect(city_1[:rejection]).to eq(true)
 
       expect(city_2).to be_a(Hash)
       expect(city_2[:id]).to eq(denver.id)
@@ -43,6 +46,8 @@ describe 'Favorites Endpoints' do
       expect(city_2[:population]).to eq(denver.population)
       expect(city_2[:latitude]).to eq(denver.latitude)
       expect(city_2[:longitude]).to eq(denver.longitude)
+      expect(city_2[:favorite]).to eq(false)
+      expect(city_2[:rejection]).to eq(true)
     end
   end
 
@@ -51,6 +56,7 @@ describe 'Favorites Endpoints' do
       user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      allow_any_instance_of(CitySerializer).to receive(:current_user).and_return(user)
 
       denver = City.create(name: 'Denver', state: 'Colorado', rank: 22, growth: '5.7', population: 1345127, latitude: '49.8781136', longitude: '-82.6297982')
 
@@ -75,6 +81,8 @@ describe 'Favorites Endpoints' do
       expect(new_rejection[:population]).to eq(denver.population)
       expect(new_rejection[:latitude]).to eq(denver.latitude)
       expect(new_rejection[:longitude]).to eq(denver.longitude)
+      expect(new_rejection[:favorite]).to eq(false)
+      expect(new_rejection[:rejection]).to eq(true)
     end
 
     it 'returns a 404 if given an invalid city id' do
