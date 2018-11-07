@@ -205,6 +205,15 @@ The frontend is deployed through GitHub pages and can be found here: [WhereTo?](
  	- [Twitter](https://twitter.com/colinarms93)
 
 
+
 ## Contributing
 
-If you would like to contribute, you can email the author at colinwarmstrong@gmail.com.
+1. Fork the repo
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Create your new feature (make sure to test it and run RSpec)
+4. Commit your changes (`git commit -am 'Add some feature'`)
+5. Push up your branch (`git push origin my-new-feature`)
+6. Create a new pull request
+
+Or email the author at colinwarmstrong@gmail.com with any questions, comments, or concerns.
+
