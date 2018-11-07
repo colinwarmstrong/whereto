@@ -20,7 +20,8 @@ class Api::V1::RejectionsController < ApplicationController
 
   def cities
     City.find_by_sql(
-      "SELECT cities.* FROM cities
+      "SELECT cities.*
+       FROM cities
        JOIN rejections
        ON rejections.city_id = cities.id
        JOIN users
