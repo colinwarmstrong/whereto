@@ -26,7 +26,20 @@ user.favorites.create!(city_id: houston.id)
 user.favorites.create!(city_id: boston.id)
 user.favorites.create!(city_id: raleigh.id)
 
+milwaukee = City.find_by_name('Milwaukee')
+dallas = City.find_by_name('Dallas')
+miami = City.find_by_name('Miami')
+new_orleans = City.find_by_name('New Orleans')
+los_angeles = City.find_by_name('Los Angeles')
+
+user.rejections.create!(city_id: milwaukee.id)
+user.rejections.create!(city_id: dallas.id)
+user.rejections.create!(city_id: miami.id)
+user.rejections.create!(city_id: new_orleans.id)
+user.rejections.create!(city_id: los_angeles.id)
+
 puts 'Seeding complete.'
 puts "Seeded #{City.count} cities"
 puts "Seeded #{User.count} users"
 puts "Seeded #{Favorite.count} favorites"
+puts "Seeded #{Rejection.count} rejections"

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Favorites Endpoints' do
-  context 'GET /api/v1/favorites' do
+  context 'GET /api/v1/rejections' do
     it 'returns all favorited cities for a user' do
       user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
 
@@ -10,19 +10,19 @@ describe 'Favorites Endpoints' do
       denver  = City.create(name: 'Denver', state: 'Colorado', rank: 22, growth: '5.7', population: 1345127, latitude: '49.8781136', longitude: '-82.6297982')
       chicago = City.create(name: 'Chicago', state: 'Illinois', rank: 3, growth: '3.4', population: 3445993, latitude: '41.8781136', longitude: '-87.6297982')
 
-      user.favorites.create(city_id: denver.id)
-      user.favorites.create(city_id: chicago.id)
+      user.rejections.create(city_id: denver.id)
+      user.rejections.create(city_id: chicago.id)
 
-      get '/api/v1/favorites'
+      get '/api/v1/rejections'
 
       expect(response.status).to eq(200)
 
-      favorite_cities = JSON.parse(response.body, symbolize_names: true)
-      city_1 = favorite_cities[0]
-      city_2 = favorite_cities[1]
+      rejected_cities = JSON.parse(response.body, symbolize_names: true)
+      city_1 = rejected_cities[0]
+      city_2 = rejected_cities[1]
 
-      expect(favorite_cities).to be_an(Array)
-      expect(favorite_cities.length).to eq(2)
+      expect(rejected_cities).to be_an(Array)
+      expect(rejected_cities.length).to eq(2)
 
       expect(city_1).to be_a(Hash)
       expect(city_1[:id]).to eq(chicago.id)
@@ -46,8 +46,8 @@ describe 'Favorites Endpoints' do
     end
   end
 
-  context 'POST /api/v1/favorites' do
-    it "adds a city to a user's favorites" do
+  context 'POST /api/v1/rejections' do
+    it "adds a city to a user's rejections" do
       user = User.create(email: 'test@test.com', password: 'password1234', first_name: 'Colin', last_name: 'Armstrong')
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -56,25 +56,25 @@ describe 'Favorites Endpoints' do
 
       favorite_payload = {city_id: denver.id}
 
-      expect(user.favorites.count).to eq(0)
+      expect(user.rejections.count).to eq(0)
 
-      post '/api/v1/favorites', params: favorite_payload
+      post '/api/v1/rejections', params: favorite_payload
 
-      expect(user.favorites.count).to eq(1)
+      expect(user.rejections.count).to eq(1)
 
       expect(response.status).to eq(200)
 
-      new_favorite = JSON.parse(response.body, symbolize_names: true)
+      new_rejection = JSON.parse(response.body, symbolize_names: true)
 
-      expect(new_favorite).to be_a(Hash)
-      expect(new_favorite[:id]).to eq(denver.id)
-      expect(new_favorite[:name]).to eq(denver.name)
-      expect(new_favorite[:state]).to eq(denver.state)
-      expect(new_favorite[:rank]).to eq(denver.rank)
-      expect(new_favorite[:growth]).to eq((denver.growth.to_f / 10.to_f).round(2))
-      expect(new_favorite[:population]).to eq(denver.population)
-      expect(new_favorite[:latitude]).to eq(denver.latitude)
-      expect(new_favorite[:longitude]).to eq(denver.longitude)
+      expect(new_rejection).to be_a(Hash)
+      expect(new_rejection[:id]).to eq(denver.id)
+      expect(new_rejection[:name]).to eq(denver.name)
+      expect(new_rejection[:state]).to eq(denver.state)
+      expect(new_rejection[:rank]).to eq(denver.rank)
+      expect(new_rejection[:growth]).to eq((denver.growth.to_f / 10.to_f).round(2))
+      expect(new_rejection[:population]).to eq(denver.population)
+      expect(new_rejection[:latitude]).to eq(denver.latitude)
+      expect(new_rejection[:longitude]).to eq(denver.longitude)
     end
 
     it 'returns a 404 if given an invalid city id' do
@@ -84,11 +84,11 @@ describe 'Favorites Endpoints' do
 
       favorite_payload = {city_id: 1}
 
-      expect(user.favorites.count).to eq(0)
+      expect(user.rejections.count).to eq(0)
 
-      post '/api/v1/favorites', params: favorite_payload
+      post '/api/v1/rejections', params: favorite_payload
 
-      expect(user.favorites.count).to eq(0)
+      expect(user.rejections.count).to eq(0)
 
       expect(response.status).to eq(404)
 
@@ -100,7 +100,7 @@ describe 'Favorites Endpoints' do
     it 'returns a 404 if no current user' do
       favorite_payload = {city_id: 1}
 
-      post '/api/v1/favorites', params: favorite_payload
+      post '/api/v1/rejections', params: favorite_payload
 
       expect(response.status).to eq(404)
 
