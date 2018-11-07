@@ -6,7 +6,7 @@
 
 ![alt text](https://image.ibb.co/j5TGiV/Screen-Shot-2018-11-06-at-10-51-33-PM.png)
 
-![alt text](https://image.ibb.co/f0iMHq/Screen-Shot-2018-11-06-at-10-51-49-PM.png)
+![alt text](https://i.imgur.com/Y122T70.png)
 
 ## Getting Started
 These instructions will get a copy of the project up and running on your local machine for development and testing purposes.
