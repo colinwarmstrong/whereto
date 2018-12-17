@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       render json: user, status: 201
     else
-      render json: {message: 'Invalid input. Please try again.'}, status: 400
+      render json: { message: 'Invalid input. Please try again.' }, status: 400
     end
   end
 

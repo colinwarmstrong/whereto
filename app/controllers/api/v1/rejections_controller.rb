@@ -8,7 +8,7 @@ class Api::V1::RejectionsController < ApplicationController
       current_user.rejections.create(city_id: city.id)
       render json: city, status: 200
     else
-      render json: {message: 'Invalid request.'}, status: 404
+      render json: { message: 'Invalid request.' }, status: 404
     end
   end
 
@@ -27,7 +27,8 @@ class Api::V1::RejectionsController < ApplicationController
        JOIN users
        ON users.id = rejections.user_id
        WHERE users.id = #{current_user.id}
-       ORDER BY rejections.created_at DESC")
+       ORDER BY rejections.created_at DESC"
+    )
   end
 
   def city

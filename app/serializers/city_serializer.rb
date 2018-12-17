@@ -1,29 +1,9 @@
 class CitySerializer < ActiveModel::Serializer
-  attributes :id, :name, :state, :rank, :growth, :population, :latitude, :longitude #:favorite, :rejection
+  attributes :id, :name, :state, :rank, :growth, :population, :latitude, :longitude
 
   def growth
     number_to_percentage(object.growth, 1)
   end
-  
-  # def favorite
-  #   if current_user && Favorite.where(user_id: current_user.id).find_by_city_id(object.id)
-  #     'favorite'
-  #   else
-  #     'false'
-  #   end
-  # end
-  #
-  # def rejection
-  #   if current_user && Rejection.where(user_id: current_user.id).find_by_city_id(object.id)
-  #     'rejection'
-  #   else
-  #     'false'
-  #   end
-  # end
-  #
-  # def current_user
-  #   @current_user ||= User.find_by_email('colinwarmstrong@gmail.com')
-  # end
 
   private
 

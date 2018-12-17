@@ -19,7 +19,7 @@ class Api::V1::CitiesController < ApplicationController
     if city
       render json: city
     else
-      render json: {message: "Could not find a city with id #{city_params[:id]}"}, status: 404
+      render json: { message: "Could not find a city with id #{city_params[:id]}" }, status: 404
     end
   end
 

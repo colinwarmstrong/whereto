@@ -5,13 +5,13 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       render json: user, status: 200
     else
-      render json: {message: 'Invalid login credentials.'}, status: 400
+      render json: { message: 'Invalid login credentials.' }, status: 400
     end
   end
 
   def destroy
     session[:user_id] = nil
-    render json: {message: 'Succesfully logged out'}, status: 200
+    render json: { message: 'Succesfully logged out' }, status: 200
   end
 
   private
