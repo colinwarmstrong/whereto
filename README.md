@@ -1,6 +1,6 @@
 # WhereTo?
 
-[![Build Status](https://travis-ci.com/colinwarmstrong/whereto.svg?branch=master)](https://travis-ci.com/colinwarmstrong/whereto)
+[![Build Status](https://travis-ci.com/colinwarmstrong/whereto.svg?branch=master)](https://travis-ci.com/colinwarmstrong/whereto) [![Maintainability](https://api.codeclimate.com/v1/badges/30b0762e5329b9052c21/maintainability)](https://codeclimate.com/github/colinwarmstrong/whereto/maintainability)
 
 [WhereTo?](https://colinwarmstrong.github.io/whereto-frontend/index.html) is an application built to help users planning on moving across the country.  It utilizes data from [OpenDataSoft](https://public.opendatasoft.com/explore/dataset/1000-largest-us-cities-by-population-with-geographic-coordinates/table/?sort=-rank) to show information about the 1000 most populated cities in America.  Users can then sort, search, favorite, and reject cities based on their preferences. The backend is a Rails API and the frontend is built using JavaScript, HTML, and CSS.  To see what new features are currently in the works, you can take a look at the the project on [Pivotal Tracker](https://www.pivotaltracker.com/n/projects/2222980).
 
